@@ -1,0 +1,329 @@
+\ProvidesPackage{formatcode}[2023/09/21 Format code]
+
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{multirow} 
+\usepackage{minted}
+\usepackage{xcolor}
+\usepackage{caption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Development by João Víctor Costa de Oliveira
+%   Version 1.1.0
+%   Date October 30, 2023
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{algorithmcounter}
+\renewcommand{\thealgorithmcounter}{\arabic{algorithmcounter}}
+\setcounter{algorithmcounter}{0} 
+
+
+% Configuração para destacar código C++
+\lstdefinelanguage{Cpp}{
+    language=C++,
+    morekeywords={string,cout,cin,endl,class,private,public,this}
+}
+\lstdefinestyle{CppStyle}{
+    language=Cpp,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Configuração para destacar código Python
+\lstdefinestyle{PythonStyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Defina uma linguagem personalizada para pseudocódigo
+\lstdefinelanguage{PseudoCodeLang}{
+    morekeywords={algorithm, if, then, else, while, do, for, to, return},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    sensitive=true
+}
+
+% Estilo para código Pseudocódigo
+\lstdefinestyle{PseudocodeStyle}{
+    language=PseudoCodeLang,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    frame=single,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Estilo para código CUDA
+\lstdefinestyle{CUDAStyle}{
+    language=C,
+    morekeywords={__global__, __device__, __host__, __shared__, threadIdx, blockIdx, blockDim, gridDim},
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Estilo para código OpenCL
+\lstdefinestyle{OpenCLStyle}{
+    language=C,
+    morekeywords={__kernel, __global, __local, __constant, get_global_id, get_local_id, get_group_id},
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Estilo para código MPI
+\lstdefinestyle{MPIStyle}{
+    language=C,
+    morekeywords={MPI_Init, MPI_Finalize, MPI_Comm_rank, MPI_Comm_size, MPI_Send, MPI_Recv},
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Estilo para código OpenMP
+\lstdefinestyle{OpenMPStyle}{
+    language=C,
+    morekeywords={omp parallel, omp for, omp sections, omp critical, omp barrier, omp atomic},
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Estilo para código C
+\lstdefinestyle{CStyle}{
+    language=C,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b % Posição da legenda
+}
+
+% Estilo de código em Bash
+\definecolor{bashblue}{RGB}{9,57,173}
+\definecolor{bashgreen}{RGB}{0,128,0}
+\definecolor{bashgray}{RGB}{128,128,128}
+\definecolor{bashpurple}{RGB}{111,0,138}
+\definecolor{bashred}{RGB}{199,0,0}
+
+\lstdefinestyle{BashStyle}{
+    language=bash,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{bashblue},
+    commentstyle=\color{bashgreen},
+    stringstyle=\color{bashred},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b,
+    escapechar=|
+}
+
+% Estilo de formatação código em Julia
+\definecolor{juliagreen}{RGB}{0,128,0}
+\definecolor{juliapurple}{RGB}{93,0,138}
+\definecolor{juliared}{RGB}{199,0,0}
+\definecolor{juliablue}{RGB}{9,57,173}
+
+% \lstdefinelanguage{Julia}{
+%     language=Julia,
+%     morekeywords={String,print,println,end,function,is,begin,elseif,const}
+% }
+\lstdefinelanguage{Julia}{
+    morekeywords={String,print,println,end,function,is,begin,break,continue,do,else,if,elseif,false,true,struct,const,import,return}
+}
+
+\lstdefinestyle{JuliaStyle}{
+    language=Julia,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{juliapurple},
+    commentstyle=\color{juliagreen},
+    stringstyle=\color{juliared},
+    numberstyle=\tiny\color{juliablue},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b
+}
+
+
+\renewcommand\lstlistingname{Algoritmo \arabic{algorithmcounter}}
+\renewcommand\lstlistlistingname{Lista de Algoritmos}
+
+
+% \newcounter{bashcodecounter}
+\lstnewenvironment{BashCode}[1][]
+{
+    \stepcounter{algorithmcounter}
+    \lstset{style=BashStyle, #1}
+}
+{}
+
+\lstset{
+  literate={\$}{{\textcolor{bashred}{\$}}}1
+}
+
+
+\lstnewenvironment{CCode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=CStyle, #1}
+}
+{}
+
+\lstnewenvironment{CppCode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=CppStyle, #1}
+}
+{}
+
+\lstnewenvironment{PythonCode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=PythonStyle, #1}
+}
+{}
+
+\lstnewenvironment{PseudoCode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=PseudocodeStyle, #1}
+}
+{}
+
+\lstnewenvironment{CUDACode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=CUDAStyle, #1}
+}
+{}
+
+\lstnewenvironment{OpenCLCode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=OpenCLStyle, #1}
+}
+{}
+
+\lstnewenvironment{MPICode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=MPIStyle, #1}
+}
+{}
+
+\lstnewenvironment{OpenMPCode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=OpenMPStyle, #1}
+}
+{}
+
+\lstnewenvironment{JuliaCode}[1][]
+{
+    \stepcounter{algorithmcounter} % Incrementa o contador
+    \lstset{style=JuliaStyle, #1}
+}
+{}
+
+
